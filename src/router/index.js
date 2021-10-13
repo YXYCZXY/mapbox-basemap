@@ -8,6 +8,11 @@ const routes = [
     path: '/',
     name: 'Home',
     component: () => import(/* webpackChunkName: "about" */ '../views/Home.vue')
+  },
+  {
+    path: '/tilejson',
+    name: 'Tileset',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Tileset.vue')
   }
 ]
 

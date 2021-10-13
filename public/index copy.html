@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+    <title><%= htmlWebpackPlugin.options.title %></title>
+  </head>
+  <body>
+    <noscript>
+      <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+    </noscript>
+    <div id="test"  draggable="true" style="height:30px;width:130px;background:pink;position: absolute;z-index: 1;">拖放源</div>    
+<div id="target" style="height: 200px;width:200px;background:lightblue;position: absolute;z-index: 0;">拖放目标</div>
+<script>
+var timer,i=0;
+var timer1,i1=0;
+//兼容IE8-浏览器
+test.onmousedown = function(){
+    if(this.dragDrop){
+        this.dragDrop();
+    }
+}
+test.ondragstart = function(){
+    this.style.backgroundColor = 'lightgreen';
+    this.innerHTML = '开始拖动';
+}
+test.ondrag = function(){
+    if(timer) return;
+    timer = setInterval(function(){
+        test.innerHTML =  '元素已被拖动' + ++i + '秒';
+    },1000);
+}
+test.ondragend = function(){
+    clearInterval(timer);
+    timer = 0;i =0;
+    this.innerHTML = '结束拖动';
+    this.style.backgroundColor = 'pink';
+}
+target.ondragenter = function(e){
+    e = e || event;
+    if(e.preventDefault){
+        e.preventDefault();
+    }else{
+        e.returnValue = false;
+    }
+    this.innerHTML = '有元素进入目标区域';
+    this.style.background = 'red';
+}
+target.ondragover = function(e){
+    e = e || event;
+    if(e.preventDefault){
+        e.preventDefault();
+    }else{
+        e.returnValue = false;
+    }
+    if(timer1) return;
+    timer1 = setInterval(function(){
+        target.innerHTML =  '元素已进入' + (++i1) + '秒';
+    },1000);
+}
+target.ondragleave = function(){
+    clearInterval(timer1);
+    timer1 = 0;i1=0;
+    this.innerHTML = '元素已离开目标区域';
+    this.style.backgroundColor = 'lightblue';
+}
+target.ondrop = function(){
+    clearInterval(timer1);
+    timer1 = 0;i1=0;
+    this.innerHTML = '元素已落在目标区域';
+    this.style.backgroundColor = 'orange';    
+}
+</script>
+    <!-- built files will be auto injected -->
+  </body>
+</html>
