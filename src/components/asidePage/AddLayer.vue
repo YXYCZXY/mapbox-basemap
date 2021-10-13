@@ -64,6 +64,7 @@
 import {cloneDeep} from 'lodash'
 import AddTilesets from './AddTilesets.vue'
 export default {
+
   components: {
     AddTilesets
   },
@@ -80,10 +81,7 @@ export default {
         }, {
           value: 'line',
           label: '线'
-        }, {
-          value: 'fill-extrusion',
-          label: '三维'
-      }],
+        }],
       value: 'polygon',
       tilesets:null,
       slidervalue:null

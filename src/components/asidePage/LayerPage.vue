@@ -10,7 +10,6 @@
 </template>
 
 <script>
-import {cloneDeep} from 'lodash'
 import {mapState} from 'vuex'
 import setAttribute from '../setAttribute.vue';
 export default {
@@ -21,7 +20,8 @@ export default {
     return {
       activeIndex:null,
       visAttribute:false,
-      dragIdx:''
+      dragIdx:'',
+      clickLayer:''
     }
   },
   computed: {
@@ -39,25 +39,52 @@ export default {
       this.updataStyle()
     },
     updataStyle() {
+
       console.log(this.$map.getStyle().layers)
     },
     selectLayer(item,index) {
-      if(this.visAttribute === false){
-        this.activeIndex = index
-        this.$emit('selectLayer',item)
-        this.clickLayer = item
-        this.visAttribute = true
+      if(this.activeIndex === index) {
+        if(this.visAttribute === false){
+          this.visAttribute = true
+        } else {
+          this.activeIndex = null
+          this.visAttribute = false
+          this.$emit('selectLayer','')
+          this.clickLayer = ''
+        }
       } else {
-        this.visAttribute = false
-        this.activeIndex = null
-        this.visAttribute = false
+        if(this.visAttribute === false){
+          this.visAttribute = true
+          this.activeIndex = index
+          this.$emit('selectLayer',item)
+          this.clickLayer = item
+        } else {
+          this.activeIndex = index
+          this.$emit('selectLayer',item)
+          this.clickLayer = item
+        }
       }
+     
 
     }
   },
   watch: {
     layers() {
       this.activeIndex = null
+    },
+    visAttribute(val) {
+      if(val === true){
+        let interval = setInterval(() => {
+          let ele = document.querySelector('#addLayer')
+          if(ele) {
+            this.visAttribute = false
+            clearInterval(interval)
+            this.activeIndex = null
+            this.clickLayer = ''
+            this.$emit('selectLayer','')
+          }
+        }, 100);
+      }
     }
   }
 }

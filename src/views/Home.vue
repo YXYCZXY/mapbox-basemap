@@ -4,7 +4,7 @@
       <el-aside width="210px">
         <aside-view @layerEdit="layerEdit" ></aside-view>
         <transition name="el-fade-in-linear">
-          <add-layer v-if="addVisable" @addLayer="addLayer"></add-layer>
+          <add-layer v-if="addVisable" @addLayer="addLayer" :addVisable="addVisable"></add-layer>
         </transition>
       </el-aside>
       <el-main>
@@ -36,6 +36,7 @@ export default {
       this.addVisable = false
     },
     layerEdit(e){
+      debugger
       if(e === 'addLayer'){
         this.addVisable = true
       }else {

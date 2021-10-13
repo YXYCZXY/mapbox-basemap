@@ -1,14 +1,14 @@
 <template>
   <div class="tilesets_wrap">
     <div class="tilesets_content">
-      <div class="tilesets_content_useData">
+      <!-- <div class="tilesets_content_useData">
         <p>正在使用的数据</p>
         <div class="useData--none">
           没有正在使用的瓦片集。
         </div>
-      </div>
+      </div> -->
       <div class="tilesets_content_useData">
-        <p>未使用的数据</p>
+        <p>使用的数据</p>
         <div class="useData" v-for="item in this.unUseData">
           <div class="useData--name">
             {{item.name}}

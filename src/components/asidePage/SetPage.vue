@@ -57,7 +57,6 @@ export default {
   },
   watch: {
     layers() {
-      // this.addLayer()
       this.layerNum = this.layers.length
     },
     clickLayer(val) {
@@ -133,7 +132,9 @@ export default {
         this.interval =  setInterval(() => {
           let ele = document.querySelector('#addLayer')
           if(!ele) {
-            this.addLayer()
+            icon.classList.add('el-icon-plus')
+            icon.classList.remove('el-icon-close')
+            this.addLayerTip = '新建图层'
             clearInterval(this.interval)
           }
         }, 100);
